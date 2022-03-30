@@ -1,4 +1,4 @@
-﻿namespace Application.Features.Roles
+﻿namespace SimpleBlog.Application.Features.Roles
 {
     public class RoleCreateRequest
     {

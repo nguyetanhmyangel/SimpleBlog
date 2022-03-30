@@ -1,4 +1,4 @@
-﻿namespace Application.Features.Categories
+﻿namespace SimpleBlog.Application.Features.Categories
 {
     public class CategoryCreateRequest
     {

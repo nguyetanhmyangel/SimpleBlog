@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace KnowledgeSpace.ViewModels.Contents
+﻿namespace SimpleBlog.Application.Features.Votes
 {
     public class VoteCreateRequest
     {
-        public int KnowledgeBaseId { get; set; }
+        public int ArticleId { get; set; }
     }
 }

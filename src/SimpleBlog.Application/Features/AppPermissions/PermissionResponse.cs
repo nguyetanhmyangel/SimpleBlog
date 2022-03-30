@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SimpleBlog.Application.Features.AppPermissions
+﻿namespace SimpleBlog.Application.Features.AppPermissions
 {
     public class PermissionResponse
     {

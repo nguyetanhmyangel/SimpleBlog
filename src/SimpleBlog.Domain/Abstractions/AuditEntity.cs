@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SimpleBlog.Domain.Abstractions
 {
@@ -32,7 +30,6 @@ namespace SimpleBlog.Domain.Abstractions
     {
         public TId Id { get; set; }
     }
-
 
     public interface IEntity<TId> : IEntity
     {

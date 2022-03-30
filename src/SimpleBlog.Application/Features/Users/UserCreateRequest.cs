@@ -1,4 +1,4 @@
-﻿namespace Application.Features.Users
+﻿namespace SimpleBlog.Application.Features.Users
 {
     public class UserCreateRequest
     {

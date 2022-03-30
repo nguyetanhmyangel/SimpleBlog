@@ -1,8 +1,8 @@
-﻿using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using SimpleBlog.Domain.Entities;
 using System.Data;
 
-namespace Application.Interfaces.Contexts
+namespace SimpleBlog.Application.Interfaces.Contexts
 {
     public interface IApplicationDbContext
     {
@@ -18,9 +18,9 @@ namespace Application.Interfaces.Contexts
         public DbSet<Category> Categories { set; get; }
         public DbSet<Comment> Comments { set; get; }
         public DbSet<Function> Functions { set; get; }
-        public DbSet<Knowledge> Knowledge { set; get; }
+        public DbSet<Article> Articles { set; get; }
         public DbSet<Label> Labels { set; get; }
-        public DbSet<LabelKnowledge> LabelInKnowledge { set; get; }
+        public DbSet<LabelArticle> LabelArticles { set; get; }
         public DbSet<AppPermission> AppPermissions { set; get; }
         public DbSet<Report> Reports { set; get; }
         public DbSet<Vote> Votes { set; get; }

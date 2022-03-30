@@ -1,8 +1,8 @@
-﻿namespace Application.Features.Functions
+﻿namespace SimpleBlog.Application.Features.Functions
 {
     public class FunctionCreateRequest
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
@@ -10,7 +10,7 @@
 
         public int SortOrder { get; set; }
 
-        public string ParentId { get; set; }
+        public int? ParentId { get; set; }
 
         public string Icon { get; set; }
     }

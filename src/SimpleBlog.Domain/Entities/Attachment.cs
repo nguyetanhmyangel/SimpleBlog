@@ -23,11 +23,11 @@ namespace SimpleBlog.Domain.Entities
         [Required]
         public long FileSize { get; set; }
 
-        public int? KnowledgeBaseId { get; set; }
+        public int? ArticleId { get; set; }
 
         public int? CommentId { get; set; }
 
-        public virtual Knowledge Knowledge { get; set; }
+        public virtual Article Article { get; set; }
 
         public virtual Comment Comment { get; set; }
     }

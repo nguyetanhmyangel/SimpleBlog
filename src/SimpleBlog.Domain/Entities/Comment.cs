@@ -12,8 +12,8 @@ namespace SimpleBlog.Domain.Entities
         public string Content { get; set; }
 
         [Required]
-        public int KnowledgeId { get; set; }
+        public int ArticleId { get; set; }
 
-        public virtual Knowledge Knowledge { get; set; }
+        public virtual Article Article { get; set; }
     }
 }

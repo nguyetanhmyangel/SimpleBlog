@@ -14,6 +14,6 @@ namespace SimpleBlog.Domain.Entities
 
         public bool IsProcessed { get; set; }
 
-        public virtual Knowledge Knowledge { get; set; }
+        public virtual Article Article { get; set; }
     }
 }

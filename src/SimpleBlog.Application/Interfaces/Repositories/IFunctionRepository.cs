@@ -1,4 +1,4 @@
-﻿namespace Application.Interfaces.Repositories
+﻿namespace SimpleBlog.Application.Interfaces.Repositories
 {
     public interface IFunctionRepository
     {

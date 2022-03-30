@@ -8,6 +8,6 @@ namespace SimpleBlog.Domain.Entities
     {
         public int KnowledgeId { get; set; }
 
-        public virtual Knowledge Knowledge { get; set; }
+        public virtual Article Article { get; set; }
     }
 }

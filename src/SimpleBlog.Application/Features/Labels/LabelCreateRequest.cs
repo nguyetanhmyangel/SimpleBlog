@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace KnowledgeSpace.ViewModels.Contents
+﻿namespace SimpleBlog.Application.Features.Labels
 {
     public class LabelCreateRequest
     {

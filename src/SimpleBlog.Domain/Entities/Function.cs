@@ -18,7 +18,7 @@ namespace SimpleBlog.Domain.Entities
         [Required]
         public int SortOrder { get; set; }
 
-        public int ParentId { get; set; }
+        public int? ParentId { get; set; }
 
         [MaxLength(50)]
         [Column(TypeName = "varchar(50)")]

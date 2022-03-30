@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SimpleBlog.Application.Features.AppPermissions
+﻿namespace SimpleBlog.Application.Features.AppPermissions
 {
     public class UpdatePermissionRequest
     {

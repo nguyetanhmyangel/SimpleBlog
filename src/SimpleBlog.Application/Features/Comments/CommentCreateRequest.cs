@@ -1,10 +1,10 @@
-﻿namespace Application.Features.Comments
+﻿namespace SimpleBlog.Application.Features.Comments
 {
     public class CommentCreateRequest
     {
         public string Content { get; set; }
 
-        public int KnowledgeBaseId { get; set; }
+        public int ArticleId { get; set; }
 
         public int? ReplyId { get; set; }
 
