@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace SimpleBlog.Infrastructure.CacheKeys
 {
-    internal class AppCommandFunctionCacheKey
+    public static class AppCommandFunctionCacheKey
     {
+        public static string ListKey => "AppCommandFunctionList";
+
+        public static string SelectListKey => "AppCommandFunctionSelectList";
+
+        public static string GetKey(int appCommandFunctionId) => $"AppCommandFunction-{appCommandFunctionId}";
+
+        public static string GetDetailsKey(int appCommandFunctionId) => $"AppCommandFunctionDetails-{appCommandFunctionId}";
     }
 }

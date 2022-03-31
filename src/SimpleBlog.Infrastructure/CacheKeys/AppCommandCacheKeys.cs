@@ -1,13 +1,13 @@
-﻿namespace AspNetCoreHero.Boilerplate.Infrastructure.CacheKeys
+﻿namespace SimpleBlog.Infrastructure.CacheKeys
 {
     public static class AppCommandCacheKeys
     {
-        public static string ListKey => "BrandList";
+        public static string ListKey => "AppCommandList";
 
-        public static string SelectListKey => "BrandSelectList";
+        public static string SelectListKey => "AppCommandSelectList";
 
-        public static string GetKey(int brandId) => $"Brand-{brandId}";
+        public static string GetKey(int appCommandId) => $"AppCommand-{appCommandId}";
 
-        public static string GetDetailsKey(int brandId) => $"BrandDetails-{brandId}";
+        public static string GetDetailsKey(int appCommandId) => $"AppCommandDetails-{appCommandId}";
     }
 }

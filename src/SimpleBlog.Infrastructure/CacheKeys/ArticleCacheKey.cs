@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SimpleBlog.Infrastructure.CacheKeys
+﻿namespace SimpleBlog.Infrastructure.CacheKeys
 {
-    internal class ArticleCacheKey
+    public class ArticleCacheKey
     {
+        public static string ListKey => "ArticleFunctionList";
+
+        public static string SelectListKey => "ArticleSelectList";
+
+        public static string GetKey(int articleId) => $"Article-{articleId}";
+
+        public static string GetDetailsKey(int articleId) => $"ArticleDetails-{articleId}";
     }
 }
