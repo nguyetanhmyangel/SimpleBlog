@@ -1,4 +1,4 @@
-﻿namespace SimpleBlog.Application.Wrapper
+﻿namespace SimpleBlog.Share.Wrapper
 {
     public class Messages
     {

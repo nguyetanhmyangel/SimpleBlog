@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using SimpleBlog.Application.Wrapper;
+using SimpleBlog.Share.Wrapper;
 
 namespace SimpleBlog.Application.Features.Votes
 {

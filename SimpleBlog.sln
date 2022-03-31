@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBlog.WebApp", "src\SimpleBlog.WebApp\SimpleBlog.WebApp.csproj", "{7701DCB4-AF5C-477A-B568-01296E91E3A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleBlog.WebApp", "src\SimpleBlog.WebApp\SimpleBlog.WebApp.csproj", "{7701DCB4-AF5C-477A-B568-01296E91E3A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBlog.WebApi", "src\SimpleBlog.WebApi\SimpleBlog.WebApi.csproj", "{A0E3AE80-512E-4C5F-ABCE-E14567CA81C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleBlog.WebApi", "src\SimpleBlog.WebApi\SimpleBlog.WebApi.csproj", "{A0E3AE80-512E-4C5F-ABCE-E14567CA81C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBlog.Application", "src\SimpleBlog.Application\SimpleBlog.Application.csproj", "{99F3677C-2ADB-47D2-B8D1-4BA2DEFBFBD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleBlog.Application", "src\SimpleBlog.Application\SimpleBlog.Application.csproj", "{99F3677C-2ADB-47D2-B8D1-4BA2DEFBFBD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBlog.Domain", "src\SimpleBlog.Domain\SimpleBlog.Domain.csproj", "{4D087DA6-EE91-47C5-AD9A-4B9E45636B5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleBlog.Domain", "src\SimpleBlog.Domain\SimpleBlog.Domain.csproj", "{4D087DA6-EE91-47C5-AD9A-4B9E45636B5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBlog.Infrastructure", "src\SimpleBlog.Infrastructure\SimpleBlog.Infrastructure.csproj", "{4057FA9C-F912-4618-98B0-C0C0DE6FE5B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleBlog.Infrastructure", "src\SimpleBlog.Infrastructure\SimpleBlog.Infrastructure.csproj", "{4057FA9C-F912-4618-98B0-C0C0DE6FE5B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBlog.Share", "SimpleBlog.Share\SimpleBlog.Share.csproj", "{41D930CE-160C-44E5-A4ED-9DDCF3A72E67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{4057FA9C-F912-4618-98B0-C0C0DE6FE5B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4057FA9C-F912-4618-98B0-C0C0DE6FE5B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4057FA9C-F912-4618-98B0-C0C0DE6FE5B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41D930CE-160C-44E5-A4ED-9DDCF3A72E67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41D930CE-160C-44E5-A4ED-9DDCF3A72E67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41D930CE-160C-44E5-A4ED-9DDCF3A72E67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41D930CE-160C-44E5-A4ED-9DDCF3A72E67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

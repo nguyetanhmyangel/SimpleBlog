@@ -1,11 +1,10 @@
-using Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 using SimpleBlog.Application.Interfaces;
-using SimpleBlog.Domain.Abstractions;
 using SimpleBlog.Infrastructure.Contexts;
 
 namespace SimpleBlog.Infrastructure
 {
-    public class RepositoryAsync<T, TId> : IRepositoryAsync<T, TId> where T : AuditEntity<TId>
+    public class RepositoryAsync<T> : IRepositoryAsync<T> where T : class
     {
         private readonly AppDbContext _dbContext;
 
@@ -35,12 +34,12 @@ namespace SimpleBlog.Infrastructure
                 .ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(TId id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            return await _dbContext.Set<T>().FindAsync(id);
+            return (await _dbContext.Set<T>().FindAsync(id))!;
         }
 
-        public async Task<List<T>> GetPagedResponseAsync(int pageNumber, int pageSize)
+        public async Task<List<T>> GetPagedAsync(int pageNumber, int pageSize)
         {
             return await _dbContext
                 .Set<T>()
@@ -52,8 +51,7 @@ namespace SimpleBlog.Infrastructure
 
         public Task UpdateAsync(T entity)
         {
-            var exist = _dbContext.Set<T>().Find(entity.Id);
-            _dbContext.Entry(exist).CurrentValues.SetValues(entity);
+            _dbContext.Entry(entity).CurrentValues.SetValues(entity);
             return Task.CompletedTask;
         }
     }

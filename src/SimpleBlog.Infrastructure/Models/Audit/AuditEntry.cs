@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Newtonsoft.Json;
 
-namespace Infrastructure.Models.Audit
+namespace SimpleBlog.Infrastructure.Models.Audit
 {
     public class AuditEntry
     {
@@ -22,9 +22,9 @@ namespace Infrastructure.Models.Audit
         public List<string> ChangedColumns { get; set; } 
         public bool HasTemporaryProperties => TemporaryProperties.Any();
 
-        public Audit ToAudit()
+        public global::SimpleBlog.Infrastructure.Models.Audit.Audit ToAudit()
         {
-            var audit = new Audit
+            var audit = new global::SimpleBlog.Infrastructure.Models.Audit.Audit
             {
                 UserId = UserId,
                 Type = AuditType.ToString(),

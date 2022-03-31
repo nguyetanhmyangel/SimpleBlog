@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\SimpleBlog.Share\SimpleBlog.Share.csproj" />
     <ProjectReference Include="..\SimpleBlog.Domain\SimpleBlog.Domain.csproj" />
   </ItemGroup>
 

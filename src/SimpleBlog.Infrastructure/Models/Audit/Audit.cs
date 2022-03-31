@@ -1,6 +1,6 @@
-﻿using Domain.Abstractions;
+﻿using SimpleBlog.Domain.Abstractions;
 
-namespace Infrastructure.Models.Audit
+namespace SimpleBlog.Infrastructure.Models.Audit
 {
     public class Audit : IEntity<int>
     {

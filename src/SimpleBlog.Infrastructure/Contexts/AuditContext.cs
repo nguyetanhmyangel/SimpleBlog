@@ -1,8 +1,8 @@
 ﻿using Application.Enums;
-using Infrastructure.Models.Audit;
 using Infrastructure.Models.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SimpleBlog.Infrastructure.Models.Audit;
 
 namespace SimpleBlog.Infrastructure.Contexts
 {
