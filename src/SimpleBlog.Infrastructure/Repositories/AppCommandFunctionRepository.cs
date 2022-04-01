@@ -4,6 +4,8 @@ using SimpleBlog.Application.Interfaces;
 using SimpleBlog.Application.Interfaces.Repositories;
 using SimpleBlog.Domain.Entities;
 using SimpleBlog.Infrastructure.CacheKeys;
+using SimpleBlog.Infrastructure.Share.Caching;
+using SimpleBlog.Infrastructure.Share.ThrowR;
 
 namespace SimpleBlog.Infrastructure.Repositories
 {
@@ -32,32 +34,31 @@ namespace SimpleBlog.Infrastructure.Repositories
             return await _repository.Entities.Where(p => p.Id == appCommandFunctionId).FirstOrDefaultAsync() ?? throw new InvalidOperationException();
         }
 
-        public async Task<AppCommandFunction> GetCachedByIdAsync(int productId)
+        public async Task<AppCommandFunction> GetCachedByIdAsync(int appCommandFunctionId)
         {
-            var cacheKey = AppCommandFunctionCacheKey.GetKey(productId);
-            var product = await _distributedCache.GetAsync<AppCommandFunction, CancellationToken token = default> (cacheKey);
-            if (product == null)
+            var cacheKey = AppCommandFunctionCacheKey.GetKey(appCommandFunctionId);
+            var list = await _distributedCache.GetAsync<AppCommandFunction> (cacheKey);
+            if (list == null)
             {
-                product = await GetByIdAsync(productId);
-                Throw.Exception.IfNull(product, "Product", "No Product Found");
-                await _distributedCache.SetAsync(cacheKey, product);
+                list = await _repository.Entities.Where(p => p.Id == appCommandFunctionId).FirstOrDefaultAsync() ;
+                Throw.Exception.IfNull(list, "AppCommandFunction", "No item Found");
+                await _distributedCache.SetAsync(cacheKey, list);
+
             }
-            return product;
+            return list;
         }
 
-        public async Task<List<Product>> GetCachedListAsync()
+        public async Task<List<AppCommandFunction>> GetCachedListAsync()
         {
-            string cacheKey = ProductCacheKeys.ListKey;
-            var productList = await _distributedCache.GetAsync<List<Product>>(cacheKey);
-            if (productList == null)
+            var cacheKey = AppCommandFunctionCacheKey.ListKey;
+            var list = await _distributedCache.GetAsync<List<AppCommandFunction>>(cacheKey);
+            if (list == null)
             {
-                productList = await _productRepository.GetListAsync();
-                await _distributedCache.SetAsync(cacheKey, productList);
+                list = await _repository.Entities.ToListAsync();
+                await _distributedCache.SetAsync(cacheKey, list);
             }
-            return productList;
+            return list;
         }
-
-        public IQueryable<AppCommandFunction> CommandFunctions { get; }
 
         public async Task<List<AppCommandFunction>> GetListAsync()
         {

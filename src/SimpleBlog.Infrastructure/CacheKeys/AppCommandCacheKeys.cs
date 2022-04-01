@@ -1,6 +1,6 @@
 ﻿namespace SimpleBlog.Infrastructure.CacheKeys
 {
-    public static class AppCommandCacheKeys
+    public static class AppCommandCacheKey
     {
         public static string ListKey => "AppCommandList";
 

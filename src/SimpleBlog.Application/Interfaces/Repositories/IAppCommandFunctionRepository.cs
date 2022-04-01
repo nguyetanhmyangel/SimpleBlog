@@ -4,7 +4,7 @@ namespace SimpleBlog.Application.Interfaces.Repositories
 {
     public interface IAppCommandFunctionRepository
     {
-        IQueryable<AppCommandFunction> CommandFunctions { get; }
+        IQueryable<AppCommandFunction> AppCommandFunctions { get; }
 
         Task<List<AppCommandFunction>> GetListAsync();
 
