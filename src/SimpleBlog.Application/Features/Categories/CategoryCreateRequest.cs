@@ -2,11 +2,11 @@
 {
     public class CategoryCreateRequest
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
-        public string SeoAlias { get; set; }
+        public string? SeoAlias { get; set; }
 
-        public string SeoDescription { get; set; }
+        public string? SeoDescription { get; set; }
 
         public int SortOrder { get; set; }
 

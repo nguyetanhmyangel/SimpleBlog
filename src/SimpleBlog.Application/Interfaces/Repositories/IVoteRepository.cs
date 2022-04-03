@@ -12,7 +12,7 @@ namespace SimpleBlog.Application.Interfaces.Repositories
 
         Task<List<Vote>> GetCachedListAsync();
 
-        Task<Vote> GetCachedByIdAsync(int voteId);
+        Task<Vote?> GetCachedByIdAsync(int voteId);
 
         Task<int> AddAsync(Vote vote);
 

@@ -17,7 +17,7 @@ namespace SimpleBlog.Application.Extensions
         public static void AddApplicationLayer(this IServiceCollection services)
         {
             //services.AddAutoMapper(Assembly.GetExecutingAssembly());
-             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

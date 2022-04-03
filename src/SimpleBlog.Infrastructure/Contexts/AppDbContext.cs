@@ -1,34 +1,50 @@
-﻿using Application.Interfaces.Services;
+﻿using System.Data;
+using Application.Interfaces.Services;
 using Infrastructure.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SimpleBlog.Application.Interfaces.Contexts;
 using SimpleBlog.Application.Interfaces.Services;
 using SimpleBlog.Domain.Abstractions;
 using SimpleBlog.Domain.Entities;
 
 namespace SimpleBlog.Infrastructure.Contexts
 {
-    public class AppDbContext : AuditContext
+    public class AppDbContext : AuditContext, IAppDbContext
     {
         private readonly IDateTimeService _dateTime;
         private readonly IAuthenticatedUserService _authenticatedUser;
 
-        public AppDbContext(DbContextOptions options, IDateTimeService dateTime, IAuthenticatedUserService authenticatedUser)
+        public AppDbContext(DbContextOptions options, IDateTimeService dateTime, IAuthenticatedUserService authenticatedUser, DbSet<AppCommand> appCommands, DbSet<AppCommandFunction> appCommandFunctions, DbSet<Category> categories, DbSet<Comment> comments, DbSet<Function> functions, DbSet<Article> article, DbSet<Label> labels, DbSet<LabelArticle> labelArticles, DbSet<AppPermission> appPermissions, DbSet<Report> reports, DbSet<Vote> votes, DbSet<Attachment> attachments, DbSet<Article> articles)
             : base(options)
         {
             _dateTime = dateTime;
             _authenticatedUser = authenticatedUser;
+            AppCommands = appCommands;
+            AppCommandFunctions = appCommandFunctions;
+            Categories = categories;
+            Comments = comments;
+            Functions = functions;
+            Article = article;
+            Labels = labels;
+            LabelArticles = labelArticles;
+            AppPermissions = appPermissions;
+            Reports = reports;
+            Votes = votes;
+            Attachments = attachments;
+            Articles = articles;
         }
 
-        //public IDbConnection Connection => Database.GetDbConnection();
+        public IDbConnection Connection => Database.GetDbConnection();
 
-        //public bool HasChanges => ChangeTracker.HasChanges();
+        public bool HasChanges => ChangeTracker.HasChanges();
 
         public DbSet<AppCommand> AppCommands { get; set; }
         public DbSet<AppCommandFunction> AppCommandFunctions { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Function> Functions { get; set; }
+        public DbSet<Article> Articles { get; set; }
         public DbSet<Article> Article { get; set; }
         public DbSet<Label> Labels { get; set; }
         public DbSet<LabelArticle> LabelArticles { get; set; }

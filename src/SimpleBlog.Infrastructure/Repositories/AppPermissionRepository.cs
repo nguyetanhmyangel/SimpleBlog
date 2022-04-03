@@ -34,7 +34,7 @@ namespace SimpleBlog.Infrastructure.Repositories
             return await _repository.Entities.Where(p => p.Id == appPermissionId).FirstOrDefaultAsync() ?? throw new InvalidOperationException();
         }
 
-        public async Task<AppPermission> GetCachedByIdAsync(int appPermissionId)
+        public async Task<AppPermission?> GetCachedByIdAsync(int appPermissionId)
         {
             var cacheKey = AppPermissionCacheKey.GetKey(appPermissionId);
             var list = await _distributedCache.GetAsync<AppPermission>(cacheKey);

@@ -12,7 +12,7 @@ namespace SimpleBlog.Application.Interfaces.Repositories
 
         Task<List<Function>> GetCachedListAsync();
 
-        Task<Function> GetCachedByIdAsync(int functionId);
+        Task<Function?> GetCachedByIdAsync(int functionId);
 
         Task<int> AddAsync(Function function);
 

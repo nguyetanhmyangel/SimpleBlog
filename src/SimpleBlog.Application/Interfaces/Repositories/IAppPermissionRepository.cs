@@ -12,7 +12,7 @@ namespace SimpleBlog.Application.Interfaces.Repositories
 
         Task<List<AppPermission>> GetCachedListAsync();
 
-        Task<AppPermission> GetCachedByIdAsync(int appPermissionId);
+        Task<AppPermission?> GetCachedByIdAsync(int appPermissionId);
 
         Task<int> AddAsync(AppPermission appPermission);
 

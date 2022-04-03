@@ -34,7 +34,7 @@ namespace SimpleBlog.Infrastructure.Repositories
             return await _repository.Entities.Where(p => p.Id == VoteId).FirstOrDefaultAsync() ?? throw new InvalidOperationException();
         }
 
-        public async Task<Vote> GetCachedByIdAsync(int voteId)
+        public async Task<Vote?> GetCachedByIdAsync(int voteId)
         {
             var cacheKey = VoteCacheKey.GetKey(voteId);
             var list = await _distributedCache.GetAsync<Vote>(cacheKey);

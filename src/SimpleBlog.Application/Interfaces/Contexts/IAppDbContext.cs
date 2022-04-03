@@ -1,15 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SimpleBlog.Domain.Entities;
 using System.Data;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace SimpleBlog.Application.Interfaces.Contexts
 {
-    public interface IApplicationDbContext
+    public interface IAppDbContext
     {
         IDbConnection Connection { get; }
         bool HasChanges { get; }
 
-        //EntityEntry Entry(object entity);
+        EntityEntry Entry(object entity);
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
