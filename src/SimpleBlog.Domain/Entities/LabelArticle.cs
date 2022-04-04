@@ -3,7 +3,7 @@ using SimpleBlog.Domain.Abstractions;
 
 namespace SimpleBlog.Domain.Entities
 {
-    [Table("LabelKnowledge")]
+    [Table("LabelArticles")]
     public class LabelArticle : AuditEntity<int>
     {
         public int ArticleId { get; set; }

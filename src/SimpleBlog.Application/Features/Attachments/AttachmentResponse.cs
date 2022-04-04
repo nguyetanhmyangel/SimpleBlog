@@ -13,7 +13,7 @@ namespace SimpleBlog.Application.Features.Attachments
 
         public long FileSize { get; set; }
 
-        public int KnowledgeBaseId { get; set; }
+        public int ArticleId { get; set; }
 
         public DateTime CreateDate { get; set; }
         public DateTime? LastModifiedDate { get; set; }

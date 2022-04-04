@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Reflection;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleBlog.Application.Interfaces;
 using SimpleBlog.Application.Interfaces.Contexts;
@@ -12,7 +13,7 @@ namespace SimpleBlog.Infrastructure.Extensions
     {
         public static void AddPersistenceContexts(this IServiceCollection services, IConfiguration configuration)
         {
-            //services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddScoped<IAppDbContext, AppDbContext>();
         }
 

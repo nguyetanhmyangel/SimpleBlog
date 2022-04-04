@@ -29,9 +29,9 @@ namespace SimpleBlog.Infrastructure.Repositories
             await _distributedCache.RemoveAsync(VoteCacheKey.GetKey(vote.Id));
         }
 
-        public async Task<Vote> GetByIdAsync(int VoteId)
+        public async Task<Vote> GetByIdAsync(int voteId)
         {
-            return await _repository.Entities.Where(p => p.Id == VoteId).FirstOrDefaultAsync() ?? throw new InvalidOperationException();
+            return await _repository.Entities.Where(p => p.Id == voteId).FirstOrDefaultAsync() ?? throw new InvalidOperationException();
         }
 
         public async Task<Vote?> GetCachedByIdAsync(int voteId)
