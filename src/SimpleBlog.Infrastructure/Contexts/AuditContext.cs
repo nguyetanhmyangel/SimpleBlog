@@ -1,18 +1,20 @@
-﻿using Application.Enums;
-using Infrastructure.Models.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SimpleBlog.Application.Enums;
 using SimpleBlog.Infrastructure.Models.Audit;
+using SimpleBlog.Infrastructure.Models.Identity;
 
 namespace SimpleBlog.Infrastructure.Contexts
 {
-    public abstract class AuditContext : IdentityDbContext<ApplicationUser>
+    public abstract class AuditContext : IdentityDbContext<User, Role, string, IdentityUserClaim<string>, IdentityUserRole<string>, IdentityUserLogin<string>, RoleClaim, IdentityUserToken<string>>
     {
         protected AuditContext(DbContextOptions options) : base(options)
         {
         }
 
-        public DbSet<Audit> AuditLogs { get; set; }
+
+        public DbSet<Audit> AuditTrails { get; set; }
 
         public virtual async Task<int> SaveChangesAsync(string userId = null, CancellationToken cancellationToken = new())
         {
@@ -45,7 +47,7 @@ namespace SimpleBlog.Infrastructure.Contexts
                         continue;
                     }
 
-                    string propertyName = property.Metadata.Name;
+                    var propertyName = property.Metadata.Name;
                     if (property.Metadata.IsPrimaryKey())
                     {
                         auditEntry.KeyValues[propertyName] = property.CurrentValue;
@@ -78,7 +80,7 @@ namespace SimpleBlog.Infrastructure.Contexts
             }
             foreach (var auditEntry in auditEntries.Where(_ => !_.HasTemporaryProperties))
             {
-                AuditLogs.Add(auditEntry.ToAudit());
+                AuditTrails.Add(auditEntry.ToAudit());
             }
             return auditEntries.Where(_ => _.HasTemporaryProperties).ToList();
         }
@@ -101,7 +103,7 @@ namespace SimpleBlog.Infrastructure.Contexts
                         auditEntry.NewValues[prop.Metadata.Name] = prop.CurrentValue;
                     }
                 }
-                AuditLogs.Add(auditEntry.ToAudit());
+                AuditTrails.Add(auditEntry.ToAudit());
             }
             return SaveChangesAsync(cancellationToken);
         }

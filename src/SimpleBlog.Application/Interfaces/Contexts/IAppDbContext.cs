@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SimpleBlog.Domain.Entities;
-using System.Data;
+﻿using System.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using SimpleBlog.Domain.Entities.Catalog;
 
 namespace SimpleBlog.Application.Interfaces.Contexts
 {
@@ -14,17 +14,14 @@ namespace SimpleBlog.Application.Interfaces.Contexts
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
-        public DbSet<AppCommand> AppCommands { set; get; }
-        public DbSet<AppCommandFunction> AppCommandFunctions { set; get; }
-        public DbSet<Category> Categories { set; get; }
-        public DbSet<Comment> Comments { set; get; }
-        public DbSet<Function> Functions { set; get; }
-        public DbSet<Article> Articles { set; get; }
-        public DbSet<Label> Labels { set; get; }
-        public DbSet<LabelArticle> LabelArticles { set; get; }
-        public DbSet<AppPermission> AppPermissions { set; get; }
-        public DbSet<Report> Reports { set; get; }
-        public DbSet<Vote> Votes { set; get; }
+        public DbSet<Article> Articles { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Label> Labels { get; set; }
+        public DbSet<LabelArticle> LabelArticles { get; set; }
+        public DbSet<Menu> Menus { get; set; }
+        public DbSet<Report> Reports { get; set; }
+        public DbSet<Vote> Votes { get; set; }
     }
 }

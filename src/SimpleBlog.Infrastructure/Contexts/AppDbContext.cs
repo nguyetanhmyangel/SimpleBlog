@@ -1,107 +1,67 @@
 ﻿using System.Data;
-using Application.Interfaces.Services;
-using Infrastructure.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SimpleBlog.Application.Interfaces.Contexts;
 using SimpleBlog.Application.Interfaces.Services;
-using SimpleBlog.Domain.Abstractions;
-using SimpleBlog.Domain.Entities;
+using SimpleBlog.Domain.Contracts;
+using SimpleBlog.Domain.Entities.Catalog;
+using SimpleBlog.Infrastructure.Models.Audit;
+using SimpleBlog.Infrastructure.Models.Identity;
 
 namespace SimpleBlog.Infrastructure.Contexts
 {
     public class AppDbContext : AuditContext, IAppDbContext
     {
-        private readonly IDateTimeService _dateTime;
-        private readonly IAuthenticatedUserService _authenticatedUser;
+        private readonly ICurrentUserService _currentUserService;
+        private readonly IDateTimeService _dateTimeService;
 
-        public AppDbContext(DbContextOptions options, IDateTimeService dateTime, IAuthenticatedUserService authenticatedUser, DbSet<AppCommand> appCommands, DbSet<AppCommandFunction> appCommandFunctions, DbSet<Category> categories, DbSet<Comment> comments, DbSet<Function> functions, DbSet<Article> article, DbSet<Label> labels, DbSet<LabelArticle> labelArticles, DbSet<AppPermission> appPermissions, DbSet<Report> reports, DbSet<Vote> votes, DbSet<Attachment> attachments, DbSet<Article> articles)
+        public AppDbContext(DbContextOptions<AppDbContext> options, ICurrentUserService currentUserService, 
+            IDateTimeService dateTimeService)
             : base(options)
         {
-            _dateTime = dateTime;
-            _authenticatedUser = authenticatedUser;
-            AppCommands = appCommands;
-            AppCommandFunctions = appCommandFunctions;
-            Categories = categories;
-            Comments = comments;
-            Functions = functions;
-            Article = article;
-            Labels = labels;
-            LabelArticles = labelArticles;
-            AppPermissions = appPermissions;
-            Reports = reports;
-            Votes = votes;
-            Attachments = attachments;
-            Articles = articles;
+            _currentUserService = currentUserService;
+            _dateTimeService = dateTimeService;
         }
 
-        public IDbConnection Connection => Database.GetDbConnection();
-
-        public bool HasChanges => ChangeTracker.HasChanges();
-
-        public DbSet<AppCommand> AppCommands { get; set; }
-        public DbSet<AppCommandFunction> AppCommandFunctions { get; set; }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<Attachment> Attachments { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<Function> Functions { get; set; }
-        public DbSet<Article> Articles { get; set; }
-        public DbSet<Article> Article { get; set; }
         public DbSet<Label> Labels { get; set; }
         public DbSet<LabelArticle> LabelArticles { get; set; }
-        public DbSet<AppPermission> AppPermissions { get; set; }
+        public DbSet<Menu> Menus { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<Vote> Votes { get; set; }
-        public DbSet<Attachment> Attachments { get; set; }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public IDbConnection Connection { get; }
+        public bool HasChanges { get; }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
         {
-            var modified = ChangeTracker.Entries()
-                .Where(e => e.State is EntityState.Modified or EntityState.Added);
-            foreach (var item in modified)
+            foreach (var entry in ChangeTracker.Entries<IAuditEntity>().ToList())
             {
-                if (item.Entity is IAuditEntity changedOrAddedItem)
+                switch (entry.State)
                 {
-                    if (item.State == EntityState.Added)
-                    {
-                        changedOrAddedItem.CreatedOn = _dateTime.NowUtc;
-                        changedOrAddedItem.CreatedBy = _authenticatedUser.UserId;
-                    }
-                    else
-                    {
-                        changedOrAddedItem.UpdateOn = _dateTime.NowUtc;
-                        changedOrAddedItem.UpdateBy = _authenticatedUser.UserId;
-                    }
+                    case EntityState.Added:
+                        entry.Entity.CreatedOn = _dateTimeService.NowUtc;
+                        entry.Entity.CreatedBy = _currentUserService.UserId;
+                        break;
+
+                    case EntityState.Modified:
+                        entry.Entity.LastModifiedOn = _dateTimeService.NowUtc;
+                        entry.Entity.LastModifiedBy = _currentUserService.UserId;
+                        break;
                 }
             }
-            return base.SaveChangesAsync(cancellationToken);
+            if (_currentUserService.UserId == null)
+            {
+                return await base.SaveChangesAsync(cancellationToken);
+            }
+            else
+            {
+                return await base.SaveChangesAsync(_currentUserService.UserId, cancellationToken);
+            }
         }
-
-        //public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
-        //{
-        //    foreach (var entry in ChangeTracker.Entries<AuditableEntity>().ToList())
-        //    {
-        //        switch (entry.State)
-        //        {
-        //            case EntityState.Added:
-        //                entry.Entity.CreatedOn = _dateTime.NowUtc;
-        //                entry.Entity.CreatedBy = _authenticatedUser.UserId;
-        //                break;
-
-        //            case EntityState.Modified:
-        //                entry.Entity.LastModifiedOn = _dateTime.NowUtc;
-        //                entry.Entity.LastModifiedBy = _authenticatedUser.UserId;
-        //                break;
-        //        }
-        //    }
-        //    if (_authenticatedUser.UserId == null)
-        //    {
-        //        return await base.SaveChangesAsync(cancellationToken);
-        //    }
-        //    else
-        //    {
-        //        return await base.SaveChangesAsync(_authenticatedUser.UserId);
-        //    }
-        //}
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -111,15 +71,23 @@ namespace SimpleBlog.Infrastructure.Contexts
             {
                 property.SetColumnType("decimal(18,2)");
             }
+
+            foreach (var property in builder.Model.GetEntityTypes()
+                .SelectMany(t => t.GetProperties())
+                .Where(p => p.Name is "LastModifiedBy" or "CreatedBy"))
+            {
+                property.SetColumnType("nvarchar(128)");
+            }
+
             base.OnModelCreating(builder);
 
-            //builder.HasDefaultSchema("Identity");
-            builder.Entity<ApplicationUser>(entity =>
+            builder.Entity<User>(entity =>
             {
                 entity.ToTable(name: "Users", "Identity");
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
             });
 
-            builder.Entity<IdentityRole>(entity =>
+            builder.Entity<Role>(entity =>
             {
                 entity.ToTable(name: "Roles", "Identity");
             });
@@ -138,29 +106,20 @@ namespace SimpleBlog.Infrastructure.Contexts
                 entity.ToTable("UserLogins", "Identity");
             });
 
-            builder.Entity<IdentityRoleClaim<string>>(entity =>
+            builder.Entity<RoleClaim>(entity =>
             {
-                entity.ToTable("RoleClaims", "Identity");
+                entity.ToTable(name: "RoleClaims", "Identity");
+
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.RoleClaims)
+                    .HasForeignKey(d => d.RoleId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<IdentityUserToken<string>>(entity =>
             {
                 entity.ToTable("UserTokens", "Identity");
             });
-
-            builder.HasSequence("ArticleSequence");
-
-            builder.Entity<AppCommandFunction>()
-                .HasIndex(p => new { p.AppCommandId, p.FunctionId })
-                .IsUnique(true);
-
-            builder.Entity<AppPermission>()
-                .HasIndex(p => new { p.AppCommandId, p.FunctionId, p.RoleId })
-                .IsUnique(true);
-
-            builder.Entity<LabelArticle>()
-                .HasIndex(p => new { p.LabelId, p.ArticleId })
-                .IsUnique(true);
         }
     }
 }

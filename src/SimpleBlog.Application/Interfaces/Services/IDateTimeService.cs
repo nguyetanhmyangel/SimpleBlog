@@ -1,4 +1,4 @@
-﻿namespace Application.Interfaces.Services
+﻿namespace SimpleBlog.Application.Interfaces.Services
 {
     public interface IDateTimeService
     {

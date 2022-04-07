@@ -1,4 +1,4 @@
-﻿using SimpleBlog.Domain.Abstractions;
+﻿using SimpleBlog.Domain.Contracts;
 
 namespace SimpleBlog.Infrastructure.Models.Audit
 {

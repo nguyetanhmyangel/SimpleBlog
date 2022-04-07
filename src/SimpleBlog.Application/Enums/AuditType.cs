@@ -1,4 +1,4 @@
-﻿namespace Application.Enums
+﻿namespace SimpleBlog.Application.Enums
 {
     public enum AuditType : byte
     {
